@@ -6,7 +6,15 @@ namespace project1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            
         }
+    }
+    class player
+    {
+        public string Position { get; set; }
+        public string Rank { get; set; }
+        public string Name { get; set; }
+        public string School { get; set; }
+        public double Cost { get; set; }
     }
 }
