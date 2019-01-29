@@ -9,9 +9,45 @@ namespace project1
     {
         static void Main(string[] args)
         {
-            List<player> players = JsonConvert.DeserializeObject<List<player>>(File.ReadAllText(@"C:\Users\eglandj\Documents\Visual Studio 2017\Projects\Project 1\project1\player.JSON"));
+            player[,] playerProfile = JsonConvert.DeserializeObject<player[,]>(File.ReadAllText(@"C:\Users\eglandj\Documents\Visual Studio 2017\Projects\Project 1\project1\player.JSON"));
 
-            string[,] playerName =
+            string[,] playerName = new string[playerProfile.GetLength(0), playerProfile.GetLength(1)];
+            for(int i = 0; i < playerProfile.GetLength(0); i++)
+            {
+                for (int j = 0; j < playerProfile.GetLength(1); j++)
+                {
+                    playerName[i,j] = playerProfile[i, j].Name;
+                    
+                }
+            }
+            double[,] salary = new double[playerProfile.GetLength(0), playerProfile.GetLength(1)];
+            for (int i = 0; i < playerProfile.GetLength(0); i++)
+            {
+                for (int j = 0; j < playerProfile.GetLength(1); j++)
+                {
+                    salary[i, j] = playerProfile[i, j].Salary;
+                    
+                }
+            }
+            string[,] school = new string[playerProfile.GetLength(0), playerProfile.GetLength(1)];
+            for (int i = 0; i < playerProfile.GetLength(0); i++)
+            {
+                for (int j = 0; j < playerProfile.GetLength(1); j++)
+                {
+                    school[i, j] = playerProfile[i, j].School;
+                    
+                }
+            }
+            string[] position = new string[playerProfile.GetLength(0)];
+            for (int i = 0; i < playerProfile.GetLength(0); i++)
+            {
+                for (int j = 0; j < playerProfile.GetLength(1); j++)
+                {
+                    position[i] = playerProfile[i, j].Position;
+
+                }
+            }
+            /*string[,] playerName = 
             {
                 {"Andrew", "Anders", "Abe", "David"},
                 {"Donald", "Jared", "Kai", "Sean"},
@@ -23,11 +59,11 @@ namespace project1
                 {25.34, 24.99, 24.58, 23.89},
                 {24.74, 24.54, 24.21, 23.98}
             };
-            string[] position = { "1. QB", "2. RB", "3. WR" };
+            string[] position = { "1. QB", "2. RB", "3. WR" };*/
 
             List<int> rankPick = new List<int>();
             ConsoleKey sentinel;
-            double moneyBank = 100.00;
+            double moneyBank = 95000000;
             int row, column;
             int pickCount = 1;
 
@@ -38,7 +74,7 @@ namespace project1
             {
                 Console.Clear();
 
-                outputTable(playerName, salary, position);
+                outputTable(playerName, salary, school, position);
 
                 row = getRow();
 
@@ -69,23 +105,29 @@ namespace project1
             Console.WriteLine("If you would like to draft a player, please press any key.\nIf not, please press X to exit.");
             key = Console.ReadKey(true).Key;
         }
-        static void outputTable(string[,] prod, double[,] sal, string[] pos)
+        static void outputTable(string[,] name, double[,] sal, string[,] school, string[] pos)
         {
             Console.WriteLine($"  Ranks: 1 \t 2  \t 3 \t 4\n\n");
-            for (var i = 0; i < prod.GetLength(0); i++)
+            for (var i = 0; i < name.GetLength(0); i++)
             {
 
-                Console.Write($"{pos[i]} \t");
-                for (var x = 0; x < prod.GetLength(1); x++)
+                Console.Write($"{pos[i].PadRight(20)}");
+                for (var x = 0; x < name.GetLength(1); x++)
                 {
-                    Console.Write($"{prod[i, x]} \t");
+                    Console.Write($"{name[i, x].PadRight(20)}");
                 }
                 Console.WriteLine("");
-                Console.Write("\t");
+                Console.Write("".PadRight(20));
+                for (var x = 0; x < school.GetLength(1); x++)
+                {
+                    Console.Write($"{school[i, x].PadRight(20)}");
+                }
+                Console.WriteLine("");
+                Console.Write("".PadRight(20));
                 for (var x = 0; x < sal.GetLength(1); x++)
                 {
 
-                    Console.Write($"{sal[i, x]} \t");
+                    Console.Write($"{sal[i, x].ToString("c").PadRight(20)}");
                 }
 
                 Console.WriteLine("");
