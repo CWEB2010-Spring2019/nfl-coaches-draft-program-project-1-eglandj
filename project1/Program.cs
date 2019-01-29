@@ -32,8 +32,8 @@ namespace project1
             int pickCount = 1;
 
             greeting();
-
             keyCapture(out sentinel);
+
             while (sentinel != ConsoleKey.X)
             {
                 Console.Clear();
@@ -163,6 +163,7 @@ namespace project1
             }
             pick++;
         }
+        
     }
     class player
     {
