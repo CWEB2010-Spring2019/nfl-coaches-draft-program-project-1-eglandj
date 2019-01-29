@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace testProject1
 {
@@ -7,6 +9,7 @@ namespace testProject1
     {
         static void Main(string[] args)
         {
+            List<player> players = JsonConvert.DeserializeObject<List<player>>(File.ReadAllText(@"C:\Users\eglandj\Documents\Visual Studio 2017\Projects\Project 1\project1\player.JSON"));
 
             string[,] playerName =
             {
