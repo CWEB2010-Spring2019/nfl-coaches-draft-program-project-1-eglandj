@@ -170,7 +170,7 @@ namespace project1
         public string Rank { get; set; }
         public string Name { get; set; }
         public string School { get; set; }
-        public double Cost { get; set; }
+        public double Salary { get; set; }
         
     }
 }
