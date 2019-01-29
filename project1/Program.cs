@@ -9,7 +9,7 @@ namespace project1
     {
         static void Main(string[] args)
         {
-            List<player> players = JsonConvert.DeserializeObject<List<player>>(File.ReadAllText(@"C:\Users\eglandj\Documents\Classes\Spring 2019\CWEB 2010\JSON_project1\player.JSON"));
+            List<player> players = JsonConvert.DeserializeObject<List<player>>(File.ReadAllText(@"C:\Users\eglandj\Documents\Visual Studio 2017\Projects\Project 1\project1\player.JSON"));
 
             string[,] playerName =
             {
