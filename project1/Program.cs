@@ -9,7 +9,7 @@ namespace project1
     {
         static void Main(string[] args)
         {
-            player[,] playerProfile = JsonConvert.DeserializeObject<player[,]>(File.ReadAllText(@"C:\Users\eglandj\Documents\Visual Studio 2017\Projects\Project 1\project1\player.JSON"));
+            player[,] playerProfile = JsonConvert.DeserializeObject<player[,]>(File.ReadAllText(@"C:\Users\eglandj\Documents\Visual Studio 2017\Projects\Project 1\player.JSON"));
 
             bool[,] pickedPlayer = new bool[playerProfile.GetLength(0), playerProfile.GetLength(1)];
             for (int i = 0; i < playerProfile.GetLength(0); i++)
@@ -276,7 +276,6 @@ namespace project1
         static void outputPrice(double totalPrice, ref bool effectiveDraft, string lowCost, bool[,] picked, string[,] rank, string[,] name, string[,] school, double[,] price, string[] position)
         {
             Console.Clear();
-            Console.WriteLine(effectiveDraft);
             if (effectiveDraft == true)
             {
                 Console.WriteLine($"Congratulations, {lowCost}");
