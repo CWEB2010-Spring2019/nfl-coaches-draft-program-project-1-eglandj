@@ -145,7 +145,7 @@
 		"Rank" : "5th Best",
 		"Name" : "Clelin Ferell",
 		"School" : "(Clemson)",
-		"Salary" : "113,000,000",
+		"Salary" : "13,000,000",
 		}
 	],
 	[
@@ -154,35 +154,35 @@
 		"Rank" : "The Best",
 		"Name" : "Greedy Williams",
 		"School" : "(Iowa)",
-		"Salary" : "27,800,900",
+		"Salary" : "24,000,000",
 		},
 		{
 		"Position" : "Defensive-Back",
 		"Rank" : "2nd Best",
-		"Name" : "Irv Smith",
+		"Name" : "Deandre Baker",
 		"School" : "(Alabama)",
-		"Salary" : "21,000,800",
+		"Salary" : "22,500,249",
 		},
 		{
 		"Position" : "Defensive-Back",
 		"Rank" : "3rd Best",
-		"Name" : "T.J. Hockenson",
+		"Name" : "Byron Murphy",
 		"School" : "(Iowa)",
-		"Salary" : "17,499,233",
+		"Salary" : "20,000,100",
 		},
 		{
 		"Position" : "Defensive-Back",
 		"Rank" : "4th Best",
-		"Name" : "Kaden Smith",
+		"Name" : "Deionte Thompson",
 		"School" : "(Stanford)",
-		"Salary" : "27,900,200",
+		"Salary" : "16,000,200",
 		},
 		{
 		"Position" : "Defensive-Back",
 		"Rank" : "5th Best",
-		"Name" : "Josh Oliver",
+		"Name" : "Amani Oruwariye",
 		"School" : "(San Jose St.)",
-		"Salary" : "14,900,333",
+		"Salary" : "11,899,999",
 		}
 	],
 	[
@@ -233,7 +233,7 @@
 		{
 		"Position" : "Line-Backer",
 		"Rank" : "2nd Best",
-		"Name" : "Devin white",
+		"Name" : "Devin White",
 		"School" : "(LSU)",
 		"Salary" : "19,000,590",
 		},

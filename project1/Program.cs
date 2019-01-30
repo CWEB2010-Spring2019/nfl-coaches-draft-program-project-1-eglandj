@@ -47,6 +47,15 @@ namespace project1
 
                 }
             }
+            string[,] rank = new string[playerProfile.GetLength(0), playerProfile.GetLength(1)];
+            for (int i = 0; i < playerProfile.GetLength(0); i++)
+            {
+                for (int j = 0; j < playerProfile.GetLength(1); j++)
+                {
+                    rank[i, j] = playerProfile[i, j].Rank;
+
+                }
+            }
             /*string[,] playerName = 
             {
                 {"Andrew", "Anders", "Abe", "David"},
@@ -68,19 +77,19 @@ namespace project1
             int pickCount = 1;
 
             greeting();
-            keyCapture(out sentinel);
+            keyCapture(out sentinel, pickCount);
 
             while (sentinel != ConsoleKey.X)
             {
                 Console.Clear();
 
-                outputTable(playerName, salary, school, position);
+                outputTable(playerName, salary, school, position, rank);
 
-                row = getRow();
+                row = getRow(position);
 
                 checkRow(ref row);
 
-                column = getColumn(rankPick);
+                column = getColumn(rankPick, rank);
 
                 checkColumn(ref column);
 
@@ -88,7 +97,7 @@ namespace project1
 
                 costEffective(rankPick, ref pickCount, ref moneyBank);
 
-                keyCapture(out sentinel);
+                keyCapture(out sentinel, pickCount);
             }
 
             outputPrice(moneyBank);
@@ -100,14 +109,24 @@ namespace project1
             Console.WriteLine("Welcome to the 2019 NFL Draft!");
         }
 
-        static void keyCapture(out ConsoleKey key)
+        static void keyCapture(out ConsoleKey key, int pickCount)
         {
             Console.WriteLine("If you would like to draft a player, please press any key.\nIf not, please press X to exit.");
             key = Console.ReadKey(true).Key;
+            if (pickCount > 5)
+            {
+                Console.WriteLine("You are at your max amount of picks.\nThe draft will now end.");
+            }
         }
-        static void outputTable(string[,] name, double[,] sal, string[,] school, string[] pos)
+        static void outputTable(string[,] name, double[,] sal, string[,] school, string[] pos, string[,] rank)
         {
-            Console.WriteLine($"  Ranks: 1 \t 2  \t 3 \t 4\n\n");
+            Console.Write("Position".PadRight(20));
+            for (int i = 0; i < rank.GetLength(1); i++)
+            {
+                Console.Write($"{rank[i,i]}".PadRight(20));
+            }
+            Console.WriteLine("\n");
+
             for (var i = 0; i < name.GetLength(0); i++)
             {
 
@@ -131,42 +150,50 @@ namespace project1
                 }
 
                 Console.WriteLine("");
-                Console.WriteLine("\n");
+                Console.WriteLine("");
             }
 
         }
-        static int getRow()
+        static int getRow(string[] pos)
         {
             int row; //Local
-            Console.WriteLine("Please select the position of the player you would like to draft");
+            Console.WriteLine("Please select the position of the player you would like to draft\n");
+            for (int i = 0; i < pos.Length; i++)
+            {
+                Console.WriteLine($"{i + 1}.) {pos[i]}");
+            }
+            
             row = Convert.ToInt32(Console.ReadLine());
             return row = row - 1;
         }
-        static int getColumn(List<int> rankPick)
+        static int getColumn(List<int> rankPick, string[,] rank)
         {
             int column; //Local
             Console.WriteLine("Please enter the rank of the player you would like to draft");
-            column = (Convert.ToInt32(Console.ReadLine()) - 1);
-            if (column < 3)
+            for (int i = 0; i < rank.GetLength(1); i++)
+            {
+                Console.WriteLine($"{i + 1}.) {rank[i,i]}");
+            }
+            column = Convert.ToInt32(Console.ReadLine());
+            if (column < 4)
             {
                 rankPick.Add(column);
-
             }
-            return column;
+            return column = column - 1;
         }
         static void checkRow(ref int num)
         {
-            while ((num < 0) || (num > 2))
+            while ((num < 0) || (num > 7))
             {
-                Console.WriteLine("Invalid entry, please enter a number between 0 and 2");
+                Console.WriteLine("Invalid entry, please enter a number between 1 and 8");
                 num = Convert.ToInt32(Console.ReadLine());
             }
         }
         static void checkColumn(ref int num)
         {
-            while ((num < 0) || (num > 3))
+            while ((num < 0) || (num > 4))
             {
-                Console.WriteLine("Invalid entry, please enter a number between 0 and 3");
+                Console.WriteLine("Invalid entry, please enter a number between 1 and 5");
                 num = Convert.ToInt32(Console.ReadLine());
             }
         }
@@ -176,12 +203,12 @@ namespace project1
             {
                 accum -= price[row, column];
                 Console.WriteLine($"\nYou have selected {prod[row, column]} for {price[row, column].ToString("c")}");
-                Console.WriteLine($"You have ${Math.Round(accum, 2)} remaining.\n");
+                Console.WriteLine($"You have {accum.ToString("c")} remaining.\n");
             }
             else
             {
                 Console.WriteLine("Invalid option");
-                Console.WriteLine(accum);
+                Console.WriteLine($"You only have {accum.ToString("c")} remaining. Please select a valid option.");
                 return;
             }
         }
@@ -196,7 +223,7 @@ namespace project1
             {
                 if (rankPick[i] < 3)
                 {
-                    if (pick > 2 && accum > 25.00)
+                    if (pick > 2 && accum > 30000000)
                     {
                         Console.WriteLine("You have made some COST EFFECTIVE draft choices\n");
                         break;
