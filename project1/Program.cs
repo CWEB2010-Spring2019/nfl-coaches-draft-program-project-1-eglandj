@@ -75,7 +75,7 @@ namespace project1
             string lowCost = "You have made some COST EFFECTIVE draft choices.\n";
 
             greeting(moneyBank);
-            keyCapture(out sentinel, pickCount);
+            keyCapture(out sentinel, ref pickCount);
 
             while (sentinel != ConsoleKey.X)
             {
@@ -91,11 +91,11 @@ namespace project1
 
                 checkColumn(ref column);
 
-                accumPrice(playerName, school, salary, ref moneyBank, row, column, pickedPlayer);
+                accumPrice(playerName, school, salary, ref moneyBank, row, column, pickedPlayer, ref pickCount);
 
                 costEffective(rankPick, ref pickCount, ref moneyBank, ref effectiveDraft, lowCost);
 
-                keyCapture(out sentinel, pickCount);
+                keyCapture(out sentinel, ref pickCount);
             }
 
             outputPrice(moneyBank, ref effectiveDraft, lowCost, pickedPlayer, rank, playerName, school, salary, position);
@@ -107,7 +107,7 @@ namespace project1
             Console.WriteLine($"Welcome to the 2019 NFL Draft!\nYou will begin the draft with {money.ToString("c")}\n");
         }
 
-        static void keyCapture(out ConsoleKey key, int pickCount)
+        static void keyCapture(out ConsoleKey key, ref int pickCount)
         {
             Console.WriteLine("If you would like to draft a player, please press any key.\nIf not, please press X to exit.");
             key = Console.ReadKey(true).Key;
@@ -224,7 +224,7 @@ namespace project1
                 num = Convert.ToInt32(Console.ReadLine()) - 1;
             }
         }
-        static void accumPrice(string[,] name, string[,] school, double[,] price, ref double accum, int row, int column, bool[,] picked)
+        static void accumPrice(string[,] name, string[,] school, double[,] price, ref double accum, int row, int column, bool[,] picked,  ref int pickCount)
         {
             if (picked[row, column] == false)
             {
@@ -235,6 +235,7 @@ namespace project1
                     Console.WriteLine($"You have selected {name[row, column]} from {school[row, column]} for {price[row, column].ToString("c")}");
                     Console.WriteLine($"You have {accum.ToString("c")} remaining.\n");
                     picked[row, column] = true;
+                    pickCount++;
                 }
                 else
                 {
@@ -279,7 +280,6 @@ namespace project1
                     }
                 }
             }
-            pick++;
         }
         static void outputPrice(double totalPrice, ref bool effectiveDraft, string lowCost, bool[,] picked, string[,] rank, string[,] name, string[,] school, double[,] price, string[] position)
         {
