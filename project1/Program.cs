@@ -56,19 +56,6 @@ namespace project1
 
                 }
             }
-            /*string[,] playerName = 
-            {
-                {"Andrew", "Anders", "Abe", "David"},
-                {"Donald", "Jared", "Kai", "Sean"},
-                {"Steve", "Kyle", "Jacob", "Joe"}
-            };
-            double[,] salary =
-            {
-                {25.43, 25.10, 25.01, 24.48},
-                {25.34, 24.99, 24.58, 23.89},
-                {24.74, 24.54, 24.21, 23.98}
-            };
-            string[] position = { "1. QB", "2. RB", "3. WR" };*/
 
             List<int> rankPick = new List<int>();
             ConsoleKey sentinel;
