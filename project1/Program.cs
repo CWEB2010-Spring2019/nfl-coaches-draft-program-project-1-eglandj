@@ -70,7 +70,7 @@ namespace project1
             ConsoleKey sentinel;
             double moneyBank = 95000000;
             int row, column;
-            int pickCount = 1;
+            int pickCount = 0;
             bool effectiveDraft = false;
             string lowCost = "You have made some COST EFFECTIVE draft choices.\n";
 
@@ -104,14 +104,14 @@ namespace project1
 
         static void greeting(double money)
         {
-            Console.WriteLine($"Welcome to the 2019 NFL Draft!\nYou will begin the draft with {money.ToString("c")}\n");
+            Console.WriteLine($"Welcome to the 2019 NFL Draft!\nYou will begin the draft with {money.ToString("c")}!\nYou will only have 5 picks.");
         }
 
         static void keyCapture(out ConsoleKey key, ref int pickCount)
         {
             Console.WriteLine("If you would like to draft a player, please press any key.\nIf not, please press X to exit.");
             key = Console.ReadKey(true).Key;
-            if (pickCount > 5)
+            if (pickCount == 5)
             {
                 Console.Clear();
                 Console.WriteLine("You are at your max amount of picks.\nThe draft will now end. Please press any key to continue.");
@@ -256,25 +256,17 @@ namespace project1
         {
             if (pick == 3)
             {
+                rankPick.Sort();
+                rankPick.Reverse();
+
                 for (int i = 0; i < rankPick.Count; i++)
                 {
-                    rankPick.Sort();
-                    rankPick.Reverse();
-
-                    if (rankPick[i] > 3)
-                    {
-                        break;
-                    }
-                    else
+                    if (rankPick[i] < 4)
                     {
                         if (accum > 30000000)
                         {
                             Console.WriteLine(lowCost);
                             effectiveDraft = true;
-                            break;
-                        }
-                        else
-                        {
                             break;
                         }
                     }
@@ -284,6 +276,7 @@ namespace project1
         static void outputPrice(double totalPrice, ref bool effectiveDraft, string lowCost, bool[,] picked, string[,] rank, string[,] name, string[,] school, double[,] price, string[] position)
         {
             Console.Clear();
+            Console.WriteLine(effectiveDraft);
             if (effectiveDraft == true)
             {
                 Console.WriteLine($"Congratulations, {lowCost}");
@@ -293,7 +286,7 @@ namespace project1
                 Console.WriteLine("Congratulations on completing your draft!");
             }
             Console.WriteLine("Based on your selections, you have {0} remaining.", totalPrice.ToString("c"));
-            Console.WriteLine("You have drafted:\n");
+            Console.WriteLine("You drafted in this order:\n");
 
             for (var i = 0; i < name.GetLength(0); i++)
             {
