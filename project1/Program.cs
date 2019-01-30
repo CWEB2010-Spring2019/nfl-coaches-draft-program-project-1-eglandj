@@ -9,8 +9,10 @@ namespace project1
     {
         static void Main(string[] args)
         {
+            //Extracting data from a JSON File
             player[,] playerProfile = JsonConvert.DeserializeObject<player[,]>(File.ReadAllText(@"C:\Users\eglandj\Documents\Visual Studio 2017\Projects\Project 1\project1\player.JSON"));
 
+            //Creating arrays for the extracted data
             bool[,] pickedPlayer = new bool[playerProfile.GetLength(0), playerProfile.GetLength(1)];
             for (int i = 0; i < playerProfile.GetLength(0); i++)
             {
@@ -64,9 +66,10 @@ namespace project1
                     rank[i, j] = playerProfile[i, j].Rank;
 
                 }
-            }
+            }//End of array creation
 
-            List<int> rankPick = new List<int>();
+            List<int> rankPick = new List<int>(); //List created for holding the players rank that were picked
+            //Global variables created
             ConsoleKey sentinel;
             double moneyBank = 95000000;
             int row, column;
@@ -74,13 +77,13 @@ namespace project1
             bool effectiveDraft = false;
             string lowCost = "You have made some COST EFFECTIVE draft choices.\n";
 
+            //Invoking greeting and key press methods
             greeting(moneyBank);
             keyCapture(out sentinel, ref pickCount);
 
+            //Main while loop invoking methods when user did not press X
             while (sentinel != ConsoleKey.X)
             {
-                Console.Clear();
-
                 outputTable(playerName, salary, school, position, rank, pickedPlayer);
 
                 row = getRow(position);
@@ -97,14 +100,13 @@ namespace project1
 
                 keyCapture(out sentinel, ref pickCount);
             }
-
+            //Invoking the closing message output after user pressed X or all 5 picks are used
             outputPrice(moneyBank, ref effectiveDraft, lowCost, pickedPlayer, rank, playerName, school, salary, position);
 
         } //End of main
-
-        static void greeting(double money)
+        static void greeting(double money)// Greeting message to user
         {
-            Console.WriteLine($"Welcome to the 2019 NFL Draft!\nYou will begin the draft with {money.ToString("c")}!\nYou will only have 5 picks.");
+            Console.WriteLine($"Welcome to the 2019 NFL Draft!\nYou will begin the draft with {money.ToString("c")}!\nYou will only have 5 picks.\n");
         }
 
         static void keyCapture(out ConsoleKey key, ref int pickCount)
@@ -122,6 +124,8 @@ namespace project1
         }
         static void outputTable(string[,] name, double[,] sal, string[,] school, string[] pos, string[,] rank, bool[,] picked)
         {
+            Console.Clear();
+
             Console.Write("Position".PadRight(20));
             for (int i = 0; i < rank.GetLength(1); i++)
             {
