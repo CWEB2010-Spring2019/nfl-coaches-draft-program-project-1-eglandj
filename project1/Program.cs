@@ -283,7 +283,7 @@ namespace project1
             int column;
             Console.WriteLine($"You have {price.ToString("c")} remaining.\n");//Writing money remaining as a string with a cost format
             Console.WriteLine($"You have selected:\n{row + 1}.) {pos[row]}\n");//Reminding the user of their position selection
-            Console.WriteLine("Please enter the rank of the player you would like to draft.\n Then press enter");
+            Console.WriteLine("Please enter the rank of the player you would like to draft.\nThen press enter");
             for (int i = 0; i < rank.GetLength(1); i++)//For loop giving the user options for rank selection
             {
                 Console.WriteLine($"{i + 1}.) {rank[i, i]}");
