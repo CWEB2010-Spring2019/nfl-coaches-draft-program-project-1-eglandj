@@ -132,8 +132,8 @@ namespace project1
             Console.Clear();
 
             Console.Write("Position".PadRight(20));//Labeling the far left column and adding the length to equal 20
-            //For loop to get the name of rank data from rank array
-            for (int i = 0; i < rank.GetLength(1); i++)
+            
+            for (int i = 0; i < rank.GetLength(1); i++)//For loop to get the name of rank data from rank array
             {
                 Console.Write($"{rank[i, i]}".PadRight(20));//Outputting rank names to top of the table
             }
@@ -192,8 +192,7 @@ namespace project1
                         Console.ResetColor();//Resetting the background to black for the data to follow
                     }
                 }
-                Console.WriteLine("");
-                Console.WriteLine("");
+                Console.WriteLine("\n");
             }
 
         }
@@ -207,7 +206,7 @@ namespace project1
             }
             Console.WriteLine("\n");
 
-            Console.Write($"{pos[row].PadRight(20)}");
+            Console.Write($"{pos[row].PadRight(20)}");// Outputting the position based on the row the user selected
 
             for (var x = 0; x < name.GetLength(1); x++)
             {
@@ -245,17 +244,16 @@ namespace project1
             {
                 if (picked[row, x] == false)//Will write the players name with a black background if they have not been picked
                 {
-                    Console.Write($"{sal[row, x].ToString().PadRight(20)}");
+                    Console.Write($"{sal[row, x].ToString("c").PadRight(20)}");
                 }
                 else//Writing the players name with a red background if they have been picked
                 {
                     Console.BackgroundColor = ConsoleColor.DarkRed;
-                    Console.Write($"{sal[row, x].ToString().PadRight(20)}");
+                    Console.Write($"{sal[row, x].ToString("c").PadRight(20)}");
                     Console.ResetColor();//Resetting the background to black for the data to follow
                 }
             }
-            Console.WriteLine("");
-            Console.WriteLine("");
+            Console.WriteLine("\n");
         }
         static int getRow(string[] pos, double price)//Method to create options for user and capture the position they select
         {
