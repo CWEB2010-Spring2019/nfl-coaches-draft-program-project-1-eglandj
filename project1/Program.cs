@@ -266,7 +266,7 @@ namespace project1
             {
                 Console.WriteLine($"{i + 1}.) {pos[i]}");
             }
-            try
+            try//Error catching
             {
                 row = Convert.ToInt32(Console.ReadLine());
                 return row = row - 1;
