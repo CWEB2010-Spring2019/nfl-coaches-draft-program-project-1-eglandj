@@ -104,8 +104,12 @@ namespace project1
         } //End of main
         static void greeting(double money)//Greeting message to user
         {
-            Console.WriteLine($"Welcome to the 2019 NFL Draft!\nYou will begin the draft with {money.ToString("c")}!\nYou will only have 5 picks." +
-            $"\n\nPlayers can not be selected more than once or if you can't afford them.\n\nAlso, please maximize the screen before you begin.\n");
+            Console.Write("Welcome to the 2019 NFL Draft!\nYou will begin the draft with ");
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.Write($"{money.ToString("c")}");
+            Console.ResetColor();
+            Console.Write("!\nYou will only have 5 picks.");
+            Console.WriteLine("\n\nPlayers can not be selected more than once or if you can't afford them.\n\nAlso, please maximize the screen before you begin.\n");
         }
 
         //Capture Key Mothed
@@ -145,7 +149,7 @@ namespace project1
                     {
                         Console.Write($"{name[i, x].PadRight(20)}");
                     }
-                    else//Writing the players name with a red background if they have been picked
+                    else//Writing the players name with a DarkRed background if they have been picked
                     {
                         Console.ForegroundColor = ConsoleColor.DarkRed;
                         Console.Write($"{name[i, x].PadRight(20)}");
@@ -162,7 +166,7 @@ namespace project1
                     {
                         Console.Write($"{school[i, x].PadRight(20)}");
                     }
-                    else//Writing the players school with a red background if they have been picked
+                    else//Writing the players school with a DarkRed background if they have been picked
                     {
                         Console.ForegroundColor = ConsoleColor.DarkRed;
                         Console.Write($"{school[i, x].PadRight(20)}");
@@ -178,9 +182,11 @@ namespace project1
 
                     if (picked[i, x] == false)//Will write the players salary with a black background if they have not been picked
                     {
+                        Console.ForegroundColor = ConsoleColor.DarkGreen;
                         Console.Write($"{sal[i, x].ToString("c").PadRight(20)}");
+                        Console.ResetColor();
                     }
-                    else//Writing the players salary with a red background if they have been picked
+                    else//Writing the players salary with a DarkRed background if they have been picked
                     {
                         Console.ForegroundColor = ConsoleColor.DarkRed;
                         Console.Write($"{sal[i, x].ToString("c").PadRight(20)}");//Writing salary as a string with a cost format 
@@ -209,7 +215,7 @@ namespace project1
                 {
                     Console.Write($"{name[row, x].PadRight(20)}");
                 }
-                else//Writing the players name with a red background if they have been picked
+                else//Writing the players name with a DarkRed background if they have been picked
                 {
                     Console.ForegroundColor = ConsoleColor.DarkRed;
                     Console.Write($"{name[row, x].PadRight(20)}");
@@ -225,7 +231,7 @@ namespace project1
                 {
                     Console.Write($"{school[row, x].PadRight(20)}");
                 }
-                else//Writing the players name with a red background if they have been picked
+                else//Writing the players name with a DarkRed background if they have been picked
                 {
                     Console.ForegroundColor = ConsoleColor.DarkRed;
                     Console.Write($"{school[row, x].PadRight(20)}");
@@ -239,9 +245,11 @@ namespace project1
             {
                 if (picked[row, x] == false)//Will write the players name with a black background if they have not been picked
                 {
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
                     Console.Write($"{sal[row, x].ToString("c").PadRight(20)}");
+                    Console.ResetColor();
                 }
-                else//Writing the players name with a red background if they have been picked
+                else//Writing the players name with a DarkRed background if they have been picked
                 {
                     Console.ForegroundColor = ConsoleColor.DarkRed;
                     Console.Write($"{sal[row, x].ToString("c").PadRight(20)}");
@@ -252,9 +260,13 @@ namespace project1
         }
         static int getRow(string[] pos, double price)//Method to create options for user and capture the position they select
         {
-            Console.WriteLine($"You have {price.ToString("c")} remaining.\n");//Writing money remaining as a string with a cost format 
+            Console.Write($"You have ");//Writing money remaining as a string with a cost format
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.Write($"{ price.ToString("c")}");
+            Console.ResetColor();
+            Console.Write(" remaining.\n\n");
             int row;
-            Console.WriteLine("Please select the position of the player you would like to draft.\nThen press enter.");
+            Console.WriteLine("Please select the position of the player you would like to draft.\nThen press enter.\n");
             for (int i = 0; i < pos.Length; i++)
             {
                 Console.WriteLine($"{i + 1}.) {pos[i]}");
@@ -274,9 +286,13 @@ namespace project1
         static int getColumn(ref List<int> rankPick, string[,] rank, int row, string[] pos, double price)
         {
             int column;
-            Console.WriteLine($"You have {price.ToString("c")} remaining.\n");//Writing money remaining as a string with a cost format
+            Console.Write($"You have ");//Writing money remaining as a string with a cost format
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.Write($"{ price.ToString("c")}");
+            Console.ResetColor();
+            Console.Write(" remaining.\n\n");
             Console.WriteLine($"You have selected:\n{row + 1}.) {pos[row]}\n");//Reminding the user of their position selection
-            Console.WriteLine("Please enter the rank of the player you would like to draft.\nThen press enter");
+            Console.WriteLine("Please enter the rank of the player you would like to draft.\nThen press enter\n");
             for (int i = 0; i < rank.GetLength(1); i++)//For loop giving the user options for rank selection
             {
                 Console.WriteLine($"{i + 1}.) {rank[i, i]}");
@@ -334,8 +350,16 @@ namespace project1
                 {
                     Console.Clear();
                     accum -= price[row, column];//Removing the players price from the users bank
-                    Console.WriteLine($"You have selected {name[row, column]} from {school[row, column]} for {price[row, column].ToString("c")}");
-                    Console.WriteLine($"You have {accum.ToString("c")} remaining.\n");
+                    Console.Write($"You have selected {name[row, column]} from {school[row, column]} for ");
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
+                    Console.Write($"{price[row, column].ToString("c")}");
+                    Console.WriteLine("!");
+                    Console.ResetColor();
+                    Console.Write("You have ");
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
+                    Console.Write($"{ accum.ToString("c")} ");
+                    Console.ResetColor();
+                    Console.WriteLine("remaining.\n");
                     picked[row, column] = true;//Changing the player to picked
                     pickCount++;//Increasing the pick count
                 }
