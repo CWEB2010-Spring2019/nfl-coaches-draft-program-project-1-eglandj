@@ -368,7 +368,7 @@ namespace project1
                     Console.Clear();
                     Console.ForegroundColor = ConsoleColor.DarkRed;
                     Console.WriteLine("Invalid option");
-                    Console.WriteLine($"You only have {accum.ToString("c")} remaining. Please select a valid option.");
+                    Console.WriteLine($"You only have {accum.ToString("c")} remaining. Please select a valid option.\n");
                     Console.ResetColor();
                     return;
                 }
@@ -400,7 +400,9 @@ namespace project1
                     {
                         if (accum > 30000000)//Checking to see the if the users money is above the value
                         {
+                            Console.ForegroundColor = ConsoleColor.DarkYellow;
                             Console.WriteLine(lowCost);//Outputs message if the user had an effective draft
+                            Console.ResetColor();
                             effectiveDraft = true;//Changes the cost effective value
                             break;//Ends the loop
                         }
@@ -409,7 +411,7 @@ namespace project1
             }
         }
         //Method that outputs a final message to the user
-        static void outputPrice(int pickCount, double totalPrice, ref bool effectiveDraft, string lowCost, bool[,] picked, string[,] rank, string[,] name, string[,] school, double[,] price, string[] position)
+        static void outputPrice(int pickCount, double money, ref bool effectiveDraft, string lowCost, bool[,] picked, string[,] rank, string[,] name, string[,] school, double[,] price, string[] position)
         {
             Console.Clear();
             if (pickCount == 0)//Output message to user if they end the draft before they picke a player
@@ -420,14 +422,21 @@ namespace project1
             {
                 if (effectiveDraft == true)//Outputs message to the use if they had an effective draft
                 {
-                    Console.WriteLine($"Congratulations, {lowCost}");
+                    Console.Write("Congratulations, ");
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine($"{lowCost}");
+                    Console.ResetColor();
                 }
                 else//Ouputs message to user at the end of draft
                 {
                     Console.WriteLine("Congratulations on completing your draft!");
                 }
                 //Output message telling the user their remaining amount
-                Console.WriteLine("Based on your selections, you have {0} remaining.", totalPrice.ToString("c"));
+                Console.Write("Based on your selections, you have ");
+                Console.ForegroundColor = ConsoleColor.DarkGreen;
+                Console.Write($"{money.ToString("c")} ");
+                Console.ResetColor();
+                Console.WriteLine("remaining.");
                 Console.WriteLine("You have drafted:\n");
 
                 //Formatting the output to in the final message of who the user drafted
@@ -481,7 +490,9 @@ namespace project1
                     {
                         if (picked[i, x] == true)
                         {
+                            Console.ForegroundColor = ConsoleColor.DarkGreen;
                             Console.Write($"{price[i, x].ToString("c").PadRight(20)}");
+                            Console.ResetColor();
                         }
                     }
                 }//End of formatting
