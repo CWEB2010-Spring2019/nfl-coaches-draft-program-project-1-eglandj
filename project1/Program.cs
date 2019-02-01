@@ -92,7 +92,7 @@ namespace project1
 
                 outputPositionTable(row, playerName, salary, school, position, rank, pickedPlayer);
         
-                 column = getColumn(ref rankPick, rank, row, position, moneyBank);
+                column = getColumn(ref rankPick, rank, row, position, moneyBank);
 
                 checkColumn(ref column);
 
@@ -104,6 +104,8 @@ namespace project1
             }
             //Invoking the closing message output after user pressed X or all 5 picks are used
             outputPrice(moneyBank, ref effectiveDraft, lowCost, pickedPlayer, rank, playerName, school, salary, position);
+            Console.WriteLine("Please press any key to exit.");
+            Console.ReadKey();
 
         } //End of main
         static void greeting(double money)//Greeting message to user
@@ -259,13 +261,21 @@ namespace project1
         {
             Console.WriteLine($"You have {price.ToString("c")} remaining.\n");//Writing money remaining as a string with a cost format 
             int row;
-            Console.WriteLine("Please select the position of the player you would like to draft.");
+            Console.WriteLine("Please select the position of the player you would like to draft.\nThen press enter.");
             for (int i = 0; i < pos.Length; i++)
             {
                 Console.WriteLine($"{i + 1}.) {pos[i]}");
             }
-            row = Convert.ToInt32(Console.ReadLine());
-            return row = row - 1;
+            try
+            {
+                row = Convert.ToInt32(Console.ReadLine());
+                return row = row - 1;
+            }
+            catch
+            {
+                return row = -1;
+            }
+            
         }
         //Method to capture the users rank they select
         static int getColumn(ref List<int> rankPick, string[,] rank, int row, string[] pos, double price)
@@ -273,29 +283,52 @@ namespace project1
             int column;
             Console.WriteLine($"You have {price.ToString("c")} remaining.\n");//Writing money remaining as a string with a cost format
             Console.WriteLine($"You have selected:\n{row + 1}.) {pos[row]}\n");//Reminding the user of their position selection
-            Console.WriteLine("Please enter the rank of the player you would like to draft.");
+            Console.WriteLine("Please enter the rank of the player you would like to draft.\n Then press enter");
             for (int i = 0; i < rank.GetLength(1); i++)//For loop giving the user options for rank selection
             {
                 Console.WriteLine($"{i + 1}.) {rank[i, i]}");
             }
-            column = Convert.ToInt32(Console.ReadLine());
-            rankPick.Add(column);//Adding the rank pick to a list
-            return column = column - 1;//Setting the user selection to equal data array selection
-        }
-        static void checkRow(ref int num)//Checking to make sure the user inputs a number within range
-        {
-            while ((num < 0) || (num > 7))//Number oustide of range will force the user to input correctly
+            try
             {
-                Console.WriteLine("Invalid entry, please enter a number between 1 and 8.");
-                num = Convert.ToInt32(Console.ReadLine()) - 1;
+                column = Convert.ToInt32(Console.ReadLine());
+                rankPick.Add(column);//Adding the rank pick to a list
+                return column = column - 1;//Setting the user selection to equal data array selection
+            }
+            catch
+            {
+                return column = -1;
+            }
+            
+        }
+        static void checkRow(ref int row)//Checking to make sure the user inputs a number within range
+        {
+            while ((row < 0) || (row > 7))//Number oustide of range will force the user to input correctly
+            {
+                try
+                {
+                    Console.WriteLine("Invalid entry, please enter a number between 1 and 8.");
+                    row = Convert.ToInt32(Console.ReadLine()) - 1;
+                }
+                catch
+                {
+                    row = -1;
+                }
+                
             }
         }
-        static void checkColumn(ref int num)//Checking to make sure the user inputs a number within range
+        static void checkColumn(ref int column)//Checking to make sure the user inputs a number within range
         {
-            while ((num < 0) || (num > 4))//Number oustide of range will force the user to input correctly
+            while ((column < 0) || (column > 4))//Number oustide of range will force the user to input correctly
             {
-                Console.WriteLine("Invalid entry, please enter a number between 1 and 5.");
-                num = Convert.ToInt32(Console.ReadLine()) - 1;
+                try
+                {
+                    Console.WriteLine("Invalid entry, please enter a number between 1 and 5.");
+                    column = Convert.ToInt32(Console.ReadLine()) - 1;
+                }
+                catch
+                {
+                    column = -1;
+                }
             }
         }
 
