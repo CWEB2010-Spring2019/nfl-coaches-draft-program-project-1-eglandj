@@ -509,5 +509,6 @@ namespace project1
         public string School { get; set; }
         public double Salary { get; set; }
         public bool pickedPlayer = false;
+
     }
 }
