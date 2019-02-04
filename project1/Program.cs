@@ -353,8 +353,8 @@ namespace project1
                     Console.Write($"You have selected {name[row, column]} from {school[row, column]} for ");
                     Console.ForegroundColor = ConsoleColor.DarkGreen;
                     Console.Write($"{price[row, column].ToString("c")}");
-                    Console.WriteLine("!");
                     Console.ResetColor();
+                    Console.WriteLine("!");
                     Console.Write("You have ");
                     Console.ForegroundColor = ConsoleColor.DarkGreen;
                     Console.Write($"{ accum.ToString("c")} ");
