@@ -436,7 +436,7 @@ namespace project1
                 Console.ForegroundColor = ConsoleColor.DarkGreen;
                 Console.Write($"{money.ToString("c")} ");
                 Console.ResetColor();
-                Console.WriteLine("remaining.");
+                Console.WriteLine("remaining to pay-out signing bonuses.");
                 Console.WriteLine("You have drafted:\n");
 
                 //Formatting the output to in the final message of who the user drafted
