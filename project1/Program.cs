@@ -10,7 +10,7 @@ namespace project1
         {
             //Extracting data from a JSON File
             Player[,] playerProfile = JsonConvert.DeserializeObject<Player[,]>(File.ReadAllText(@"C:\Users\eglandj\Documents\Visual Studio 2017\Projects\Project 1\project1\player.JSON"));
-            //Creating arrays for the extracted data
+            //Creating an array for position data
             string[] position = new string[playerProfile.GetLength(0)];
             for (int i = 0; i < playerProfile.GetLength(0); i++)
             {
@@ -268,7 +268,9 @@ namespace project1
                 else//If the user can not afford the player
                 {
                     Console.Clear();
-                    ColoredConsoleWrite(ConsoleColor.DarkRed, $"Invalid option!\nYou only have {accum.ToString("c")} remaining. Please select a valid option.\n");
+                    ColoredConsoleWrite(ConsoleColor.DarkRed, "Invalid option!\nYou only have ");
+                    ColoredConsoleWrite(ConsoleColor.DarkGreen, $"{accum.ToString("c")}");
+                    ColoredConsoleWrite(ConsoleColor.DarkRed, " remaining. Please select a valid option.\n");
                     return;
                 }
             }
