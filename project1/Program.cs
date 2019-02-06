@@ -75,7 +75,7 @@ namespace project1
             greeting(moneyBank);
             keyCapture(out sentinel, ref pickCount);
 
-            //Main while loop invoking methods when user did not press X
+            //Main while loop invoking methods when user did not press Escape
             while (sentinel != ConsoleKey.Escape)
             {
                 outputTable(playerName, salary, school, position, rank, pickedPlayer);
