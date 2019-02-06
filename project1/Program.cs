@@ -39,7 +39,8 @@ namespace project1
             int pickCount = 0;
             bool effectiveDraft = false;
             string lowCost = "You have made some COST EFFECTIVE draft choices.\n";
-
+            lowCost = lowCost.ToUpper();
+            Console.WriteLine(lowCost);
             //Invoking greeting and key press methods
             Greeting(moneyBank);
             KeyCapture(out ConsoleKey sentinel, ref pickCount);
