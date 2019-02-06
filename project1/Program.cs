@@ -11,22 +11,12 @@ namespace project1
             //Extracting data from a JSON File
             Player[,] playerProfile = JsonConvert.DeserializeObject<Player[,]>(File.ReadAllText(@"C:\Users\eglandj\Documents\Visual Studio 2017\Projects\Project 1\project1\player.JSON"));
             //Creating arrays for the extracted data
-            bool[,] pickedPlayer = new bool[playerProfile.GetLength(0), playerProfile.GetLength(1)];
-            string[,] playerName = new string[playerProfile.GetLength(0), playerProfile.GetLength(1)];
-            double[,] salary = new double[playerProfile.GetLength(0), playerProfile.GetLength(1)];
-            string[,] school = new string[playerProfile.GetLength(0), playerProfile.GetLength(1)];
             string[] position = new string[playerProfile.GetLength(0)];
-            string[,] rank = new string[playerProfile.GetLength(0), playerProfile.GetLength(1)];
             for (int i = 0; i < playerProfile.GetLength(0); i++)
             {
                 for (int j = 0; j < playerProfile.GetLength(1); j++)
                 {
-                    pickedPlayer[i, j] = playerProfile[i, j].pickedPlayer;
-                    playerName[i, j] = playerProfile[i, j].Name;
-                    salary[i, j] = playerProfile[i, j].Salary;
-                    school[i, j] = playerProfile[i, j].School;
                     position[i] = playerProfile[i, j].Position;
-                    rank[i, j] = playerProfile[i, j].Rank;
                 }
             }//End of array creation
             List<int> rankPick = new List<int>(); //List created for holding the players ranks that were picked
@@ -42,25 +32,25 @@ namespace project1
             //Main while loop invoking methods when user did not press Escape
             while (sentinel != ConsoleKey.Escape)
             {
-                OutputTable(playerName, salary, school, position, rank, pickedPlayer);
+                OutputTable(playerProfile, position);
                 row = GetRow(position, moneyBank);
                 CheckRow(ref row);
-                OutputPositionTable(row, playerName, salary, school, position, rank, pickedPlayer);       
-                column = GetColumn(ref rankPick, rank, row, position, moneyBank);
+                OutputPositionTable(playerProfile, row, position);       
+                column = GetColumn(ref rankPick, playerProfile, row, position, moneyBank);
                 CheckColumn(ref column);
-                AccumPrice(playerName, school, salary, ref moneyBank, row, column, pickedPlayer, ref pickCount);
+                AccumPrice(playerProfile, ref moneyBank, row, column, ref pickCount);
                 CostEffective(ref rankPick, ref pickCount, ref moneyBank, ref effectiveDraft, lowCost);
                 KeyCapture(out sentinel, ref pickCount);
             }
             //Invoking the closing message output after user pressed X or all 5 picks are used
-            OutputPrice(pickCount, moneyBank, ref effectiveDraft, lowCost, pickedPlayer, rank, playerName, school, salary, position);
+            OutputPrice(playerProfile, pickCount, moneyBank, ref effectiveDraft, lowCost, position);
             Console.WriteLine("Please press any key to exit.");
             Console.ReadKey();
         } //End of main
-        static void Greeting(double money)//Greeting message to user
+        static void Greeting(double moneyBank)//Greeting message to user
         {
             Console.Write("Welcome to the 2019 NFL Draft!\nYou will begin the draft with ");
-            ColoredConsoleWrite(ConsoleColor.DarkGreen, $"{money.ToString("c")}");
+            ColoredConsoleWrite(ConsoleColor.DarkGreen, $"{moneyBank.ToString("c")}");
             Console.Write("!\nYou will only have 5 picks.");
             Console.WriteLine("\n\nPlayers can not be selected more than once or if you can't afford them.\n\nAlso, please maximize the screen before you begin.\n");
         }
@@ -78,51 +68,51 @@ namespace project1
             }
         }
         //Output table for the user to see all the player data
-        static void OutputTable(string[,] name, double[,] sal, string[,] school, string[] pos, string[,] rank, bool[,] picked)
+        static void OutputTable(Player[,] player, string [] pos)
         {
             Console.Clear();
             Console.Write("Position".PadRight(20));//Labeling the far left column and adding the length to equal 20
-            for (int i = 0; i < rank.GetLength(1); i++)//For loop to get the name of rank data from rank array
+            for (int i = 0; i < player.GetLength(1); i++)//For loop to get the name of rank data from rank array
             {
-                Console.Write($"{rank[i, i]}".PadRight(20));//Outputting rank names to top of the table
+                Console.Write($"{player[i, i].Rank}".PadRight(20));//Outputting rank names to top of the table
             }
             Console.WriteLine("\n");
-            for (var i = 0; i < name.GetLength(0); i++)//For loop to run for the length of number of names in the array
+            for (var i = 0; i < player.GetLength(0); i++)//For loop to run for the length of number of names in the array
             {
                 Console.Write($"{pos[i].PadRight(20)}");//Writing the position of the player for that row
                 for (int b = 0; b < 3; b++)
                 {
                     //For loop writing names for each position from array data
-                    for (var x = 0; x < name.GetLength(1); x++)
+                    for (var x = 0; x < player.GetLength(1); x++)
                     {
-                        if (picked[i, x] == false)
+                        if (player[i, x].pickedPlayer == false)
                         {
                             if (b == 0)
                             {
-                                Console.Write($"{name[i, x].PadRight(20)}");
+                                Console.Write($"{player[i, x].Name.PadRight(20)}");
                             }
                             else if (b == 1)
                             {
-                                Console.Write($"{school[i, x].PadRight(20)}");
+                                Console.Write($"{player[i, x].School.PadRight(20)}");
                             }
                             else if (b == 2)
                             {
-                                ColoredConsoleWrite(ConsoleColor.DarkGreen, $"{sal[i, x].ToString("c").PadRight(20)}");
+                                ColoredConsoleWrite(ConsoleColor.DarkGreen, $"{player[i, x].Salary.ToString("c").PadRight(20)}");
                             }
                         }
                         else
                         {
                             if (b == 0)
                             {
-                                ColoredConsoleWrite(ConsoleColor.DarkRed, $"{name[i, x].PadRight(20)}");
+                                ColoredConsoleWrite(ConsoleColor.DarkRed, $"{player[i, x].Name.PadRight(20)}");
                             }
                             else if (b == 1)
                             {
-                                ColoredConsoleWrite(ConsoleColor.DarkRed, $"{school[i, x].PadRight(20)}");
+                                ColoredConsoleWrite(ConsoleColor.DarkRed, $"{player[i, x].School.PadRight(20)}");
                             }
                             else if (b == 2)
                             {
-                                ColoredConsoleWrite(ConsoleColor.DarkRed, $"{sal[i, x].ToString("c").PadRight(20)}");
+                                ColoredConsoleWrite(ConsoleColor.DarkRed, $"{player[i, x].Salary.ToString("c").PadRight(20)}");
                             }
                         }
                     }
@@ -132,49 +122,49 @@ namespace project1
                 Console.WriteLine("");
             }
         }
-        static void OutputPositionTable(int row, string[,] name, double[,] sal, string[,] school, string[] pos, string[,] rank, bool[,] picked)
+        static void OutputPositionTable(Player[,] player, int row, string[] pos)
         {
             Console.Clear();
             Console.Write("".PadRight(20));
-            for (int i = 0; i < rank.GetLength(1); i++)
+            for (int i = 0; i < player.GetLength(1); i++)
             {
-                Console.Write($"{rank[row, i]}".PadRight(20));//Outputting rank names to top of the table
+                Console.Write($"{player[row, i].Rank}".PadRight(20));//Outputting rank names to top of the table
             }
             Console.WriteLine("\n");
             Console.Write($"{pos[row].PadRight(20)}");// Outputting the position based on the row the user selected
             for (int b = 0; b < 3; b++)
             {
                 //For loop writing names for each position from array data
-                for (var x = 0; x < name.GetLength(1); x++)
+                for (var x = 0; x < player.GetLength(1); x++)
                 {
-                    if (picked[row, x] == false)
+                    if (player[row, x].pickedPlayer == false)
                     {
                         if (b == 0)
                         {
-                            Console.Write($"{name[row, x].PadRight(20)}");
+                            Console.Write($"{player[row, x].Name.PadRight(20)}");
                         }
                         else if (b == 1)
                         {
-                            Console.Write($"{school[row, x].PadRight(20)}");
+                            Console.Write($"{player[row, x].School.PadRight(20)}");
                         }
                         else if (b == 2)
                         {
-                            ColoredConsoleWrite(ConsoleColor.DarkGreen, $"{sal[row, x].ToString("c").PadRight(20)}");
+                            ColoredConsoleWrite(ConsoleColor.DarkGreen, $"{player[row, x].Salary.ToString("c").PadRight(20)}");
                         }
                     }
                     else
                     {
                         if (b == 0)
                         {
-                            ColoredConsoleWrite(ConsoleColor.DarkRed, $"{name[row, x].PadRight(20)}");
+                            ColoredConsoleWrite(ConsoleColor.DarkRed, $"{player[row, x].Name.PadRight(20)}");
                         }
                         else if (b == 1)
                         {
-                            ColoredConsoleWrite(ConsoleColor.DarkRed, $"{school[row, x].PadRight(20)}");
+                            ColoredConsoleWrite(ConsoleColor.DarkRed, $"{player[row, x].School.PadRight(20)}");
                         }
                         else if (b == 2)
                         {
-                            ColoredConsoleWrite(ConsoleColor.DarkRed, $"{sal[row, x].ToString("c").PadRight(20)}");
+                            ColoredConsoleWrite(ConsoleColor.DarkRed, $"{player[row, x].Salary.ToString("c").PadRight(20)}");
                         }
                     }
                 }
@@ -205,7 +195,7 @@ namespace project1
             } 
         }
         //Method to capture the users rank they select
-        static int GetColumn(ref List<int> rankPick, string[,] rank, int row, string[] pos, double price)
+        static int GetColumn(ref List<int> rankPick, Player[,] player, int row, string[] pos, double price)
         {
             int column;
             Console.Write("You have ");//Writing money remaining as a string with a cost format
@@ -213,9 +203,9 @@ namespace project1
             Console.Write(" remaining.\n\n");
             Console.WriteLine($"You have selected:\n{row + 1}.) {pos[row]}\n");//Reminding the user of their position selection
             Console.WriteLine("Please enter the rank of the player you would like to draft.\nThen press enter.\n");
-            for (int i = 0; i < rank.GetLength(1); i++)//For loop giving the user options for rank selection
+            for (int i = 0; i < player.GetLength(1); i++)//For loop giving the user options for rank selection
             {
-                Console.WriteLine($"{i + 1}.) {rank[i, i]}");
+                Console.WriteLine($"{i + 1}.) {player[i, i].Rank}");
             }
             try
             {
@@ -259,20 +249,20 @@ namespace project1
             }
         }
         //Method to calculate if player has been picked, cost after player has been picked, and if they have enough to select the player
-        static void AccumPrice(string[,] name, string[,] school, double[,] price, ref double accum, int row, int column, bool[,] picked, ref int pickCount)
+        static void AccumPrice(Player[,] player, ref double accum, int row, int column, ref int pickCount)
         {
-            if (picked[row, column] == false)//Checking if the player has not been picked
+            if (player[row, column].pickedPlayer == false)//Checking if the player has not been picked
             {
-                if (accum >= price[row, column])//Checking to see if the user can afford the player
+                if (accum >= player[row, column].Salary)//Checking to see if the user can afford the player
                 {
                     Console.Clear();
-                    accum -= price[row, column];//Removing the players price from the users bank
-                    Console.Write($"You have selected {name[row, column]} from {school[row, column]} for ");
-                    ColoredConsoleWrite(ConsoleColor.DarkGreen, $"{price[row, column].ToString("c")}");
+                    accum -= player[row, column].Salary;//Removing the players price from the users bank
+                    Console.Write($"You have selected {player[row, column].Name} from {player[row, column].School} for ");
+                    ColoredConsoleWrite(ConsoleColor.DarkGreen, $"{player[row, column].Salary.ToString("c")}");
                     Console.Write("!\nYou have ");
                     ColoredConsoleWrite(ConsoleColor.DarkGreen, $"{ accum.ToString("c")} ");
                     Console.WriteLine("remaining.\n");
-                    picked[row, column] = true;//Changing the player to picked
+                    player[row, column].pickedPlayer = true;//Changing the player to picked
                     pickCount++;//Increasing the pick count
                 }
                 else//If the user can not afford the player
@@ -315,7 +305,7 @@ namespace project1
             }
         }
         //Method that outputs a final message to the user
-        static void OutputPrice(int pickCount, double money, ref bool effectiveDraft, string lowCost, bool[,] picked, string[,] rank, string[,] name, string[,] school, double[,] price, string[] position)
+        static void OutputPrice(Player[,] player, int pickCount, double moneyBank, ref bool effectiveDraft, string lowCost, string[] position)
         {
             Console.Clear();
             if (pickCount == 0)//Output message to user if they end the draft before they picke a player
@@ -335,20 +325,20 @@ namespace project1
                 }
                 //Output message telling the user their remaining amount
                 Console.Write("Based on your selections, you have ");
-                ColoredConsoleWrite(ConsoleColor.DarkGreen, $"{money.ToString("c")} ");
+                ColoredConsoleWrite(ConsoleColor.DarkGreen, $"{moneyBank.ToString("c")} ");
                 Console.WriteLine("remaining to pay-out signing bonuses.\nYou have drafted:\n");
                 for (int a = 0; a < 5; a++)
                 {
                     //Formatting the output to in the final message of who the user drafted
-                    for (var i = 0; i < name.GetLength(0); i++)
+                    for (var i = 0; i < player.GetLength(0); i++)
                     {
-                        for (var x = 0; x < name.GetLength(1); x++)
+                        for (var x = 0; x < player.GetLength(1); x++)
                         {
-                            if (picked[i, x] == true)
+                            if (player[i, x].pickedPlayer == true)
                             {
                                 if (a == 0)
                                 {
-                                    Console.Write($"{rank[i, x]}".PadRight(20));
+                                    Console.Write($"{player[i, x].Rank}".PadRight(20));
                                 }
                                 else if (a == 1)
                                 {
@@ -356,15 +346,15 @@ namespace project1
                                 }
                                 else if ( a == 2)
                                 {
-                                    Console.Write($"{name[i, x].PadRight(20)}");
+                                    Console.Write($"{player[i, x].Name.PadRight(20)}");
                                 }
                                 else if (a == 3)
                                 {
-                                    Console.Write($"{school[i, x].PadRight(20)}");
+                                    Console.Write($"{player[i, x].School.PadRight(20)}");
                                 }
                                 else if (a == 4)
                                 {
-                                    ColoredConsoleWrite(ConsoleColor.DarkGreen, $"{price[i, x].ToString("c").PadRight(20)}");
+                                    ColoredConsoleWrite(ConsoleColor.DarkGreen, $"{player[i, x].Salary.ToString("c").PadRight(20)}");
                                 }
                             }
                         }
