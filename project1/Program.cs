@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
-
 namespace project1
 {
     class Program
@@ -11,7 +10,6 @@ namespace project1
         {
             //Extracting data from a JSON File
             Player[,] playerProfile = JsonConvert.DeserializeObject<Player[,]>(File.ReadAllText(@"C:\Users\eglandj\Documents\Visual Studio 2017\Projects\Project 1\project1\player.JSON"));
-
             //Creating arrays for the extracted data
             bool[,] pickedPlayer = new bool[playerProfile.GetLength(0), playerProfile.GetLength(1)];
             string[,] playerName = new string[playerProfile.GetLength(0), playerProfile.GetLength(1)];
@@ -31,7 +29,6 @@ namespace project1
                     rank[i, j] = playerProfile[i, j].Rank;
                 }
             }//End of array creation
-
             List<int> rankPick = new List<int>(); //List created for holding the players ranks that were picked
             //Global variables created
             double moneyBank = 95000000;
@@ -39,38 +36,26 @@ namespace project1
             int pickCount = 0;
             bool effectiveDraft = false;
             string lowCost = "You have made some COST EFFECTIVE draft choices.\n";
-            lowCost = lowCost.ToUpper();
-            Console.WriteLine(lowCost);
             //Invoking greeting and key press methods
             Greeting(moneyBank);
             KeyCapture(out ConsoleKey sentinel, ref pickCount);
-
             //Main while loop invoking methods when user did not press Escape
             while (sentinel != ConsoleKey.Escape)
             {
                 OutputTable(playerName, salary, school, position, rank, pickedPlayer);
-
                 row = GetRow(position, moneyBank);
-
                 CheckRow(ref row);
-
-                OutputPositionTable(row, playerName, salary, school, position, rank, pickedPlayer);
-        
+                OutputPositionTable(row, playerName, salary, school, position, rank, pickedPlayer);       
                 column = GetColumn(ref rankPick, rank, row, position, moneyBank);
-
                 CheckColumn(ref column);
-
                 AccumPrice(playerName, school, salary, ref moneyBank, row, column, pickedPlayer, ref pickCount);
-
                 CostEffective(ref rankPick, ref pickCount, ref moneyBank, ref effectiveDraft, lowCost);
-
                 KeyCapture(out sentinel, ref pickCount);
             }
             //Invoking the closing message output after user pressed X or all 5 picks are used
             OutputPrice(pickCount, moneyBank, ref effectiveDraft, lowCost, pickedPlayer, rank, playerName, school, salary, position);
             Console.WriteLine("Please press any key to exit.");
             Console.ReadKey();
-
         } //End of main
         static void Greeting(double money)//Greeting message to user
         {
@@ -311,7 +296,6 @@ namespace project1
                 //Sorting the rank list and reversing the order of it
                 rankPick.Sort();
                 rankPick.Reverse();
-
                 for (int i = 0; i < rankPick.Count; i++)//For loop for length of list
                 {
                     if (rankPick[i] > 3)//Checking if the value of indexed list 
