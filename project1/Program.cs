@@ -100,53 +100,50 @@ namespace project1
             {
                 Console.Write($"{rank[i, i]}".PadRight(20));//Outputting rank names to top of the table
             }
-            Console.WriteLine("\n\n");
+            Console.WriteLine("\n");
             for (var i = 0; i < name.GetLength(0); i++)//For loop to run for the length of number of names in the array
             {
                 Console.Write($"{pos[i].PadRight(20)}");//Writing the position of the player for that row
-                //For loop writing names for each position from array data
-                for (var x = 0; x < name.GetLength(1); x++)
+                for (int b = 0; b < 3; b++)
                 {
-                    if (picked[i, x] == false)//Will write the players name with a black background if they have not been picked
+                    //For loop writing names for each position from array data
+                    for (var x = 0; x < name.GetLength(1); x++)
                     {
-                        Console.Write($"{name[i, x].PadRight(20)}");
+                        if (picked[i, x] == false)
+                        {
+                            if (b == 0)
+                            {
+                                Console.Write($"{name[i, x].PadRight(20)}");
+                            }
+                            else if (b == 1)
+                            {
+                                Console.Write($"{school[i, x].PadRight(20)}");
+                            }
+                            else if (b == 2)
+                            {
+                                ColoredConsoleWrite(ConsoleColor.DarkGreen, $"{sal[i, x].ToString("c").PadRight(20)}");
+                            }
+                        }
+                        else
+                        {
+                            if (b == 0)
+                            {
+                                ColoredConsoleWrite(ConsoleColor.DarkRed, $"{name[i, x].PadRight(20)}");
+                            }
+                            else if (b == 1)
+                            {
+                                ColoredConsoleWrite(ConsoleColor.DarkRed, $"{school[i, x].PadRight(20)}");
+                            }
+                            else if (b == 2)
+                            {
+                                ColoredConsoleWrite(ConsoleColor.DarkRed, $"{sal[i, x].ToString("c").PadRight(20)}");
+                            }
+                        }
                     }
-                    else//Writing the players name with a DarkRed background if they have been picked
-                    {
-                        ColoredConsoleWrite(ConsoleColor.DarkRed, $"{name[i, x].PadRight(20)}");
-                    }
+                    Console.WriteLine("");
+                    Console.Write("".PadRight(20));
                 }
-                //Creating two new line and making the length equal to others
                 Console.WriteLine("");
-                Console.Write("".PadRight(20));
-
-                for (var x = 0; x < school.GetLength(1); x++)
-                {
-                    if (picked[i, x] == false)//Will write the players school with a black background if they have not been picked
-                    {
-                        Console.Write($"{school[i, x].PadRight(20)}");
-                    }
-                    else//Writing the players school with a DarkRed background if they have been picked
-                    {
-                        ColoredConsoleWrite(ConsoleColor.DarkRed, $"{school[i, x].PadRight(20)}");
-                    }
-                }
-                //Creating two new line and making the length equal to others
-                Console.WriteLine("");
-                Console.Write("".PadRight(20));
-                for (var x = 0; x < sal.GetLength(1); x++)
-                {
-
-                    if (picked[i, x] == false)//Will write the players salary with a black background if they have not been picked
-                    {
-                        ColoredConsoleWrite(ConsoleColor.DarkGreen, $"{sal[i, x].ToString("c").PadRight(20)}");
-                    }
-                    else//Writing the players salary with a DarkRed background if they have been picked
-                    {
-                        ColoredConsoleWrite(ConsoleColor.DarkRed, $"{sal[i, x].ToString("c").PadRight(20)}");//Writing salary as a string with a cost format 
-                    }
-                }
-                Console.WriteLine("\n");
             }
         }
         static void OutputPositionTable(int row, string[,] name, double[,] sal, string[,] school, string[] pos, string[,] rank, bool[,] picked)
@@ -159,45 +156,46 @@ namespace project1
             }
             Console.WriteLine("\n");
             Console.Write($"{pos[row].PadRight(20)}");// Outputting the position based on the row the user selected
-            for (var x = 0; x < name.GetLength(1); x++)
+            for (int b = 0; b < 3; b++)
             {
-                if (picked[row, x] == false)//Will write the players name with a black background if they have not been picked
+                //For loop writing names for each position from array data
+                for (var x = 0; x < name.GetLength(1); x++)
                 {
-                    Console.Write($"{name[row, x].PadRight(20)}");
+                    if (picked[row, x] == false)
+                    {
+                        if (b == 0)
+                        {
+                            Console.Write($"{name[row, x].PadRight(20)}");
+                        }
+                        else if (b == 1)
+                        {
+                            Console.Write($"{school[row, x].PadRight(20)}");
+                        }
+                        else if (b == 2)
+                        {
+                            ColoredConsoleWrite(ConsoleColor.DarkGreen, $"{sal[row, x].ToString("c").PadRight(20)}");
+                        }
+                    }
+                    else
+                    {
+                        if (b == 0)
+                        {
+                            ColoredConsoleWrite(ConsoleColor.DarkRed, $"{name[row, x].PadRight(20)}");
+                        }
+                        else if (b == 1)
+                        {
+                            ColoredConsoleWrite(ConsoleColor.DarkRed, $"{school[row, x].PadRight(20)}");
+                        }
+                        else if (b == 2)
+                        {
+                            ColoredConsoleWrite(ConsoleColor.DarkRed, $"{sal[row, x].ToString("c").PadRight(20)}");
+                        }
+                    }
                 }
-                else//Writing the players name with a DarkRed background if they have been picked
-                {
-                    ColoredConsoleWrite(ConsoleColor.DarkRed, $"{name[row, x].PadRight(20)}");
-                }
+                Console.WriteLine("");
+                Console.Write("".PadRight(20));
             }
             Console.WriteLine("");
-            Console.Write("".PadRight(20));
-
-            for (var x = 0; x < name.GetLength(1); x++)
-            {
-                if (picked[row, x] == false)//Will write the players name with a black background if they have not been picked
-                {
-                    Console.Write($"{school[row, x].PadRight(20)}");
-                }
-                else//Writing the players name with a DarkRed background if they have been picked
-                {
-                    ColoredConsoleWrite(ConsoleColor.DarkRed, $"{school[row, x].PadRight(20)}");
-                }
-            }
-            Console.WriteLine("");
-            Console.Write("".PadRight(20));
-            for (var x = 0; x < name.GetLength(1); x++)
-            {
-                if (picked[row, x] == false)//Will write the players name with a black background if they have not been picked
-                {
-                    ColoredConsoleWrite(ConsoleColor.DarkGreen, $"{sal[row, x].ToString("c").PadRight(20)}");
-                }
-                else//Writing the players name with a DarkRed background if they have been picked
-                {
-                    ColoredConsoleWrite(ConsoleColor.DarkRed, $"{sal[row, x].ToString("c").PadRight(20)}");
-                }
-            }
-            Console.WriteLine("\n");
         }
         static int GetRow(string[] pos, double price)//Method to create options for user and capture the position they select
         {
