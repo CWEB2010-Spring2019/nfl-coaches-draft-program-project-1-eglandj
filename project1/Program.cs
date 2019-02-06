@@ -355,63 +355,40 @@ namespace project1
                 ColoredConsoleWrite(ConsoleColor.DarkGreen, $"{money.ToString("c")} ");
                 Console.WriteLine("remaining to pay-out signing bonuses.");
                 Console.WriteLine("You have drafted:\n");
-
-                //Formatting the output to in the final message of who the user drafted
-                for (var i = 0; i < name.GetLength(0); i++)
+                for (int a = 0; a < 5; a++)
                 {
-                    for (var x = 0; x < name.GetLength(1); x++)
+                    //Formatting the output to in the final message of who the user drafted
+                    for (var i = 0; i < name.GetLength(0); i++)
                     {
-                        if (picked[i, x] == true)
+                        for (var x = 0; x < name.GetLength(1); x++)
                         {
-                            Console.Write($"{rank[i,x]}".PadRight(20));
+                            if (picked[i, x] == true)
+                            {
+                                if (a == 0)
+                                {
+                                    Console.Write($"{rank[i, x]}".PadRight(20));
+                                }
+                                else if (a == 1)
+                                {
+                                    Console.Write($"{position[i].PadRight(20)}");
+                                }
+                                else if ( a == 2)
+                                {
+                                    Console.Write($"{name[i, x].PadRight(20)}");
+                                }
+                                else if (a == 3)
+                                {
+                                    Console.Write($"{school[i, x].PadRight(20)}");
+                                }
+                                else if (a == 4)
+                                {
+                                    ColoredConsoleWrite(ConsoleColor.DarkGreen, $"{price[i, x].ToString("c").PadRight(20)}");
+                                }
+                            }
                         }
                     }
+                    Console.WriteLine("");
                 }
-                Console.WriteLine("");
-                for (var i = 0; i < name.GetLength(0); i++)
-                {
-                    for (var x = 0; x < name.GetLength(1); x++)
-                    {
-                        if (picked[i, x] == true)
-                        {
-                            Console.Write($"{position[i].PadRight(20)}");
-                        }
-                    }
-                }
-                Console.WriteLine("");
-                for (var i = 0; i < name.GetLength(0); i++)
-                {
-                    for (var x = 0; x < name.GetLength(1); x++)
-                    {
-                        if (picked[i, x] == true)
-                        {
-                            Console.Write($"{name[i, x].PadRight(20)}");
-                        }
-                    }
-                }
-                Console.WriteLine("");
-                for (var i = 0; i < school.GetLength(0); i++)
-                {
-                    for (var x = 0; x < school.GetLength(1); x++)
-                    {
-                        if (picked[i, x] == true)
-                        {
-                            Console.Write($"{school[i, x].PadRight(20)}");
-                        }
-                    }
-                }
-                Console.WriteLine("");
-                for (var i = 0; i < price.GetLength(0); i++)
-                {
-                    for (var x = 0; x < price.GetLength(1); x++)
-                    {
-                        if (picked[i, x] == true)
-                        {
-                            ColoredConsoleWrite(ConsoleColor.DarkGreen, $"{price[i, x].ToString("c").PadRight(20)}");
-                        }
-                    }
-                }//End of formatting
-                Console.WriteLine("");
             }
             Console.WriteLine("\nThis application will now close.");
         }
