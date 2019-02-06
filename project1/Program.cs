@@ -351,8 +351,7 @@ namespace project1
                 //Output message telling the user their remaining amount
                 Console.Write("Based on your selections, you have ");
                 ColoredConsoleWrite(ConsoleColor.DarkGreen, $"{money.ToString("c")} ");
-                Console.WriteLine("remaining to pay-out signing bonuses.");
-                Console.WriteLine("You have drafted:\n");
+                Console.WriteLine("remaining to pay-out signing bonuses.\nYou have drafted:\n");
                 for (int a = 0; a < 5; a++)
                 {
                     //Formatting the output to in the final message of who the user drafted
