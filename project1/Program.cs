@@ -74,50 +74,50 @@ namespace project1
             Console.Write("Position".PadRight(20));//Labeling the far left column and adding the length to equal 20
             for (int i = 0; i < player.GetLength(1); i++)//For loop to get the name of rank data from rank array
             {
-                Console.Write($"{player[i, i].Rank}".PadRight(20));//Outputting rank names to top of the table
+                CenterConsoleWrite(ConsoleColor.White, $"{player[i, i].Rank}");//Outputting rank names to top of the table
             }
             Console.WriteLine("\n");
-            for (var i = 0; i < player.GetLength(0); i++)//For loop to run for the length of number of names in the array
+            for (int i = 0; i < player.GetLength(0); i++)//For loop to run for the length of number of names in the array
             {
-                Console.Write($"{pos[i].PadRight(20)}");//Writing the position of the player for that row
+                Console.Write($"{pos[i]}".PadRight(20));//Writing the position of the player for that row
                 for (int b = 0; b < 3; b++)
                 {
                     //For loop writing names for each position from array data
-                    for (var x = 0; x < player.GetLength(1); x++)
+                    for (int x = 0; x < player.GetLength(1); x++)
                     {
                         if (player[i, x].pickedPlayer == false)
                         {
                             if (b == 0)
                             {
-                                Console.Write($"{player[i, x].Name.PadRight(20)}");
+                                CenterConsoleWrite(ConsoleColor.White, $"{player[i, x].Name}");
                             }
                             else if (b == 1)
                             {
-                                Console.Write($"{player[i, x].School.PadRight(20)}");
+                                CenterConsoleWrite(ConsoleColor.White, $"{player[i, x].School}");
                             }
                             else if (b == 2)
                             {
-                                ColoredConsoleWrite(ConsoleColor.DarkGreen, $"{player[i, x].Salary.ToString("c").PadRight(20)}");
+                                CenterConsoleWrite(ConsoleColor.DarkGreen, $"{player[i, x].Salary.ToString("c")}");
                             }
                         }
                         else
                         {
                             if (b == 0)
                             {
-                                ColoredConsoleWrite(ConsoleColor.DarkRed, $"{player[i, x].Name.PadRight(20)}");
+                                CenterConsoleWrite(ConsoleColor.DarkRed, $"{player[i, x].Name}");
                             }
                             else if (b == 1)
                             {
-                                ColoredConsoleWrite(ConsoleColor.DarkRed, $"{player[i, x].School.PadRight(20)}");
+                                CenterConsoleWrite(ConsoleColor.DarkRed, $"{player[i, x].School}");
                             }
                             else if (b == 2)
                             {
-                                ColoredConsoleWrite(ConsoleColor.DarkRed, $"{player[i, x].Salary.ToString("c").PadRight(20)}");
+                                CenterConsoleWrite(ConsoleColor.DarkRed, $"{player[i, x].Salary.ToString("c")}");
                             }
                         }
                     }
                     Console.WriteLine("");
-                    Console.Write("".PadRight(20));
+                    CenterConsoleWrite(ConsoleColor.White, "");
                 }
                 Console.WriteLine("");
             }
@@ -125,51 +125,51 @@ namespace project1
         static void OutputPositionTable(Player[,] player, int row, string[] pos)
         {
             Console.Clear();
-            Console.Write("".PadRight(20));
+            CenterConsoleWrite(ConsoleColor.White, "");
             for (int i = 0; i < player.GetLength(1); i++)
             {
-                Console.Write($"{player[row, i].Rank}".PadRight(20));//Outputting rank names to top of the table
+                CenterConsoleWrite(ConsoleColor.White, $"{player[row, i].Rank}");//Outputting rank names to top of the table
             }
             Console.WriteLine("\n");
-            Console.Write($"{pos[row].PadRight(20)}");// Outputting the position based on the row the user selected
+            Console.Write($"{pos[row]}".PadRight(20));// Outputting the position based on the row the user selected
             for (int b = 0; b < 3; b++)
             {
                 //For loop writing names for each position from array data
-                for (var x = 0; x < player.GetLength(1); x++)
+                for (int x = 0; x < player.GetLength(1); x++)
                 {
                     if (player[row, x].pickedPlayer == false)
                     {
                         if (b == 0)
                         {
-                            Console.Write($"{player[row, x].Name.PadRight(20)}");
+                            CenterConsoleWrite(ConsoleColor.White, $"{player[row, x].Name}");
                         }
                         else if (b == 1)
                         {
-                            Console.Write($"{player[row, x].School.PadRight(20)}");
+                            CenterConsoleWrite(ConsoleColor.White, $"{player[row, x].School}");
                         }
                         else if (b == 2)
                         {
-                            ColoredConsoleWrite(ConsoleColor.DarkGreen, $"{player[row, x].Salary.ToString("c").PadRight(20)}");
+                            CenterConsoleWrite(ConsoleColor.DarkGreen, $"{player[row, x].Salary.ToString("c")}");
                         }
                     }
                     else
                     {
                         if (b == 0)
                         {
-                            ColoredConsoleWrite(ConsoleColor.DarkRed, $"{player[row, x].Name.PadRight(20)}");
+                            CenterConsoleWrite(ConsoleColor.DarkRed, $"{player[row, x].Name}");
                         }
                         else if (b == 1)
                         {
-                            ColoredConsoleWrite(ConsoleColor.DarkRed, $"{player[row, x].School.PadRight(20)}");
+                            CenterConsoleWrite(ConsoleColor.DarkRed, $"{player[row, x].School}");
                         }
                         else if (b == 2)
                         {
-                            ColoredConsoleWrite(ConsoleColor.DarkRed, $"{player[row, x].Salary.ToString("c").PadRight(20)}");
+                            CenterConsoleWrite(ConsoleColor.DarkRed, $"{player[row, x].Salary.ToString("c")}");
                         }
                     }
                 }
                 Console.WriteLine("");
-                Console.Write("".PadRight(20));
+                CenterConsoleWrite(ConsoleColor.White, "");
             }
             Console.WriteLine("");
         }
@@ -182,7 +182,7 @@ namespace project1
             Console.WriteLine("Please select the position of the player you would like to draft.\nThen press enter.\n");
             for (int i = 0; i < pos.Length; i++)
             {
-                Console.WriteLine($"{i + 1}.) {pos[i]}");
+                Console.WriteLine($"  {i + 1}.) {pos[i]}");
             }
             try//Error catching
             {
@@ -205,7 +205,7 @@ namespace project1
             Console.WriteLine("Please enter the rank of the player you would like to draft.\nThen press enter.\n");
             for (int i = 0; i < player.GetLength(1); i++)//For loop giving the user options for rank selection
             {
-                Console.WriteLine($"{i + 1}.) {player[i, i].Rank}");
+                Console.WriteLine($"  {i + 1}.) {player[i, i].Rank}");
             }
             try
             {
@@ -332,31 +332,31 @@ namespace project1
                 for (int a = 0; a < 5; a++)
                 {
                     //Formatting the output to in the final message of who the user drafted
-                    for (var i = 0; i < player.GetLength(0); i++)
+                    for (int i = 0; i < player.GetLength(0); i++)
                     {
-                        for (var x = 0; x < player.GetLength(1); x++)
+                        for (int x = 0; x < player.GetLength(1); x++)
                         {
                             if (player[i, x].pickedPlayer == true)
                             {
                                 if (a == 0)
                                 {
-                                    Console.Write($"{player[i, x].Rank}".PadRight(20));
+                                    CenterConsoleWrite(ConsoleColor.White, $"{player[i, x].Rank}");
                                 }
                                 else if (a == 1)
                                 {
-                                    Console.Write($"{position[i].PadRight(20)}");
+                                    CenterConsoleWrite(ConsoleColor.White, $"{position[i]}");
                                 }
-                                else if ( a == 2)
+                                else if (a == 2)
                                 {
-                                    Console.Write($"{player[i, x].Name.PadRight(20)}");
+                                    CenterConsoleWrite(ConsoleColor.White, $"{player[i, x].Name}");
                                 }
                                 else if (a == 3)
                                 {
-                                    Console.Write($"{player[i, x].School.PadRight(20)}");
+                                    CenterConsoleWrite(ConsoleColor.White, $"{player[i, x].School}");
                                 }
                                 else if (a == 4)
                                 {
-                                    ColoredConsoleWrite(ConsoleColor.DarkGreen, $"{player[i, x].Salary.ToString("c").PadRight(20)}");
+                                    CenterConsoleWrite(ConsoleColor.DarkGreen, $"{player[i, x].Salary.ToString("c")}");
                                 }
                             }
                         }
@@ -372,6 +372,28 @@ namespace project1
             ConsoleColor originalColor = Console.ForegroundColor;
             Console.ForegroundColor = color;
             Console.Write(text);
+            Console.ForegroundColor = originalColor;
+        }
+        public static void CenterConsoleWrite(ConsoleColor color, string text)
+        {
+            int length = 20;
+            int stringLength = text.Length;
+            int buffer = (length - stringLength) / 2;
+            string spacer = "";
+            for (int i = 0; i < buffer; i++)
+            {
+                spacer += " " ;
+            }
+            ConsoleColor originalColor = Console.ForegroundColor;
+            Console.ForegroundColor = color;
+            if(stringLength % 2 == 0)
+            {
+                Console.Write(spacer + text + spacer);
+            }
+            else
+            {
+                Console.Write(" " + spacer + text + spacer);
+            }
             Console.ForegroundColor = originalColor;
         }
     }
