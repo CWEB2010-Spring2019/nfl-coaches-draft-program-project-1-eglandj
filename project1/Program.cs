@@ -9,7 +9,7 @@ namespace project1
         static void Main(string[] args)
         {
             //Extracting data from a JSON File
-            Player[,] playerProfile = JsonConvert.DeserializeObject<Player[,]>(File.ReadAllText(@"C:\Users\eglandj\Documents\Visual Studio 2017\Projects\Project 1\project1\player.JSON"));
+            Player[,] playerProfile = JsonConvert.DeserializeObject<Player[,]>(File.ReadAllText(@"..\..\..\player.JSON"));
             //Creating an array for position data
             string[] position = new string[playerProfile.GetLength(0)];
             for (int i = 0; i < playerProfile.GetLength(0); i++)
